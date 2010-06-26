@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.Model", "NetBlog.Model\NetBlog.Model.csproj", "{8F06A632-E1A3-4EB3-AC32-CFB52BA6B6FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.Controller", "NetBlog.Controller\NetBlog.Controller.csproj", "{39561587-0B84-427C-B112-6C192B8B48B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBlog.View.AspNet", "NetBlog.View.AspNet\NetBlog.View.AspNet.csproj", "{DF609E1C-CA74-49C7-960F-C997D8509097}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{19507F5A-E097-4905-9DA8-D843B81D8F60}"
+	ProjectSection(SolutionItems) = preProject
+		DB\NetBlogDB.sql = DB\NetBlogDB.sql
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F06A632-E1A3-4EB3-AC32-CFB52BA6B6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F06A632-E1A3-4EB3-AC32-CFB52BA6B6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F06A632-E1A3-4EB3-AC32-CFB52BA6B6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F06A632-E1A3-4EB3-AC32-CFB52BA6B6FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39561587-0B84-427C-B112-6C192B8B48B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39561587-0B84-427C-B112-6C192B8B48B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39561587-0B84-427C-B112-6C192B8B48B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39561587-0B84-427C-B112-6C192B8B48B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF609E1C-CA74-49C7-960F-C997D8509097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF609E1C-CA74-49C7-960F-C997D8509097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF609E1C-CA74-49C7-960F-C997D8509097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF609E1C-CA74-49C7-960F-C997D8509097}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
