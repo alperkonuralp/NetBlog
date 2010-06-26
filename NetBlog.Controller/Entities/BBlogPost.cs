@@ -6,9 +6,12 @@ using NetBlog.Controller.Common;
 
 namespace NetBlog.Controller.Entities
 {
-    public class BBlogPost : EntityBase
+    /// <summary>
+    /// Blog Post Business Entity
+    /// </summary>
+    public class BBlogPost : BusinessEntityBase
     {
-		#region Fields (15) 
+        #region Fields (15)
 
         private Guid _author;
         private BBlog _blog;
@@ -26,9 +29,9 @@ namespace NetBlog.Controller.Entities
         private string _title;
         private bool _visible;
 
-		#endregion Fields 
+        #endregion Fields
 
-		#region Properties (15) 
+        #region Properties (15)
 
         /// <summary>
         /// Gets or sets the author.
@@ -37,13 +40,26 @@ namespace NetBlog.Controller.Entities
         public Guid Author
         {
             get { return _author; }
-            set { _author = value; }
+            set
+            {
+                FirePropertyChanging("Author");
+                _author = value;
+                FirePropertyChanged("Author");
+            }
         }
 
+        /// <summary>
+        /// Gets the blog.
+        /// </summary>
+        /// <value>The blog.</value>
         public BBlog Blog
         {
             get { return _blog; }
-            set { _blog = value; }
+            internal set {
+                FirePropertyChanging("Blog");
+                _blog = value;
+                FirePropertyChanged("Blog");
+            }
         }
 
         /// <summary>
@@ -53,19 +69,32 @@ namespace NetBlog.Controller.Entities
         public int BlogID
         {
             get { return _blogID; }
-            set { _blogID = value; }
+            set
+            {
+                FirePropertyChanging("BlogID");
+                _blogID = value;
+                FirePropertyChanged("BlogID");
+            }
         }
 
+        /// <summary>
+        /// Gets the categories.
+        /// </summary>
+        /// <value>The categories.</value>
         public List<BBlogCategory> Categories
         {
             get { return _categories; }
-            set { _categories = value; }
+
         }
 
+        /// <summary>
+        /// Gets the comments.
+        /// </summary>
+        /// <value>The comments.</value>
         public List<BBlogComment> Comments
         {
             get { return _comments; }
-            set { _comments = value; }
+
         }
 
         /// <summary>
@@ -75,7 +104,12 @@ namespace NetBlog.Controller.Entities
         public string Content
         {
             get { return _content; }
-            set { _content = value; }
+            set
+            {
+                FirePropertyChanging("Content");
+                _content = value;
+                FirePropertyChanged("Content");
+            }
         }
 
         /// <summary>
@@ -87,7 +121,12 @@ namespace NetBlog.Controller.Entities
         public bool IsPublished
         {
             get { return _isPublished; }
-            set { _isPublished = value; }
+            set
+            {
+                FirePropertyChanging("IsPublished");
+                _isPublished = value;
+                FirePropertyChanged("IsPublished");
+            }
         }
 
         /// <summary>
@@ -97,7 +136,12 @@ namespace NetBlog.Controller.Entities
         public DateTime LastModifiedDate
         {
             get { return _lastModifiedDate; }
-            set { _lastModifiedDate = value; }
+            set
+            {
+                FirePropertyChanging("LastModifiedDate");
+                _lastModifiedDate = value;
+                FirePropertyChanged("LastModifiedDate");
+            }
         }
 
         /// <summary>
@@ -107,7 +151,12 @@ namespace NetBlog.Controller.Entities
         public int PostID
         {
             get { return _postID; }
-            set { _postID = value; }
+            set
+            {
+                FirePropertyChanging("PostID");
+                _postID = value;
+                FirePropertyChanged("PostID");
+            }
         }
 
         /// <summary>
@@ -117,7 +166,12 @@ namespace NetBlog.Controller.Entities
         public DateTime PublishDate
         {
             get { return _publishDate; }
-            set { _publishDate = value; }
+            set
+            {
+                FirePropertyChanging("PublishDate");
+                _publishDate = value;
+                FirePropertyChanged("PublishDate");
+            }
         }
 
         /// <summary>
@@ -127,7 +181,12 @@ namespace NetBlog.Controller.Entities
         public int ReadCount
         {
             get { return _readCount; }
-            set { _readCount = value; }
+            set
+            {
+                FirePropertyChanging("ReadCount");
+                _readCount = value;
+                FirePropertyChanged("ReadCount");
+            }
         }
 
         /// <summary>
@@ -137,13 +196,22 @@ namespace NetBlog.Controller.Entities
         public string Summary
         {
             get { return _summary; }
-            set { _summary = value; }
+            set
+            {
+                FirePropertyChanging("Summary");
+                _summary = value;
+                FirePropertyChanged("Summary");
+            }
         }
 
+        /// <summary>
+        /// Gets the tags.
+        /// </summary>
+        /// <value>The tags.</value>
         public List<BBlogTag> Tags
         {
             get { return _tags; }
-            set { _tags = value; }
+
         }
 
         /// <summary>
@@ -153,19 +221,30 @@ namespace NetBlog.Controller.Entities
         public string Title
         {
             get { return _title; }
-            set { _title = value; }
+            set
+            {
+                FirePropertyChanging("Title");
+                _title = value;
+                FirePropertyChanged("Title");
+            }
         }
 
+
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="EBlogPost"/> is visible.
+        /// Gets or sets a value indicating whether this <see cref="BBlogPost"/> is visible.
         /// </summary>
         /// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
         public bool Visible
         {
             get { return _visible; }
-            set { _visible = value; }
+            set
+            {
+                FirePropertyChanging("Visible");
+                _visible = value;
+                FirePropertyChanged("Visible");
+            }
         }
 
-		#endregion Properties 
+        #endregion Properties
     }
 }

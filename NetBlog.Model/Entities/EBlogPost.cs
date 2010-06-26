@@ -6,9 +6,12 @@ using NetBlog.Model.Common;
 
 namespace NetBlog.Model.Entities
 {
+    /// <summary>
+    /// Blog Post Entity
+    /// </summary>
     public class EBlogPost : EntityBase
     {
-		#region Fields (11) 
+        #region Fields (11)
 
         private Guid _author;
         private int _blogID;
@@ -22,9 +25,9 @@ namespace NetBlog.Model.Entities
         private string _title;
         private bool _visible;
 
-		#endregion Fields 
+        #endregion Fields
 
-		#region Properties (11) 
+        #region Properties (11)
 
         /// <summary>
         /// Gets or sets the author.
@@ -33,7 +36,12 @@ namespace NetBlog.Model.Entities
         public Guid Author
         {
             get { return _author; }
-            set { _author = value; }
+            set
+            {
+                FirePropertyChanging("Author");
+                _author = value;
+                FirePropertyChanged("Author");
+            }
         }
 
         /// <summary>
@@ -43,7 +51,12 @@ namespace NetBlog.Model.Entities
         public int BlogID
         {
             get { return _blogID; }
-            set { _blogID = value; }
+            set
+            {
+                FirePropertyChanging("BlogID");
+                _blogID = value;
+                FirePropertyChanged("BlogID");
+            }
         }
 
         /// <summary>
@@ -53,7 +66,12 @@ namespace NetBlog.Model.Entities
         public string Content
         {
             get { return _content; }
-            set { _content = value; }
+            set
+            {
+                FirePropertyChanging("Content");
+                _content = value;
+                FirePropertyChanged("Content");
+            }
         }
 
         /// <summary>
@@ -65,7 +83,12 @@ namespace NetBlog.Model.Entities
         public bool IsPublished
         {
             get { return _isPublished; }
-            set { _isPublished = value; }
+            set
+            {
+                FirePropertyChanging("IsPublished");
+                _isPublished = value;
+                FirePropertyChanged("IsPublished");
+            }
         }
 
         /// <summary>
@@ -75,7 +98,12 @@ namespace NetBlog.Model.Entities
         public DateTime LastModifiedDate
         {
             get { return _lastModifiedDate; }
-            set { _lastModifiedDate = value; }
+            set
+            {
+                FirePropertyChanging("LastModifiedDate");
+                _lastModifiedDate = value;
+                FirePropertyChanged("LastModifiedDate");
+            }
         }
 
         /// <summary>
@@ -85,7 +113,12 @@ namespace NetBlog.Model.Entities
         public int PostID
         {
             get { return _postID; }
-            set { _postID = value; }
+            set
+            {
+                FirePropertyChanging("PostID");
+                _postID = value;
+                FirePropertyChanged("PostID");
+            }
         }
 
         /// <summary>
@@ -95,7 +128,12 @@ namespace NetBlog.Model.Entities
         public DateTime PublishDate
         {
             get { return _publishDate; }
-            set { _publishDate = value; }
+            set
+            {
+                FirePropertyChanging("PublishDate");
+                _publishDate = value;
+                FirePropertyChanged("PublishDate");
+            }
         }
 
         /// <summary>
@@ -105,7 +143,12 @@ namespace NetBlog.Model.Entities
         public int ReadCount
         {
             get { return _readCount; }
-            set { _readCount = value; }
+            set
+            {
+                FirePropertyChanging("ReadCount");
+                _readCount = value;
+                FirePropertyChanged("ReadCount");
+            }
         }
 
         /// <summary>
@@ -115,7 +158,12 @@ namespace NetBlog.Model.Entities
         public string Summary
         {
             get { return _summary; }
-            set { _summary = value; }
+            set
+            {
+                FirePropertyChanging("Summary");
+                _summary = value;
+                FirePropertyChanged("Summary");
+            }
         }
 
         /// <summary>
@@ -125,7 +173,12 @@ namespace NetBlog.Model.Entities
         public string Title
         {
             get { return _title; }
-            set { _title = value; }
+            set
+            {
+                FirePropertyChanging("Title");
+                _title = value;
+                FirePropertyChanged("Title");
+            }
         }
 
         /// <summary>
@@ -135,9 +188,14 @@ namespace NetBlog.Model.Entities
         public bool Visible
         {
             get { return _visible; }
-            set { _visible = value; }
+            set
+            {
+                FirePropertyChanging("Visible");
+                _visible = value;
+                FirePropertyChanged("Visible");
+            }
         }
 
-		#endregion Properties 
+        #endregion Properties
     }
 }

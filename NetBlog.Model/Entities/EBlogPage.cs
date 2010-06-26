@@ -6,6 +6,9 @@ using NetBlog.Model.Common;
 
 namespace NetBlog.Model.Entities
 {
+    /// <summary>
+    /// Blog Page Entity
+    /// </summary>
     public class EBlogPage : EntityBase
     {
 		#region Fields (13) 
@@ -35,7 +38,11 @@ namespace NetBlog.Model.Entities
         public Guid Author
         {
             get { return _author; }
-            set { _author = value; }
+            set {
+                FirePropertyChanging("Author");
+                _author = value;
+                FirePropertyChanged("Author");
+            }
         }
 
         /// <summary>
@@ -45,7 +52,11 @@ namespace NetBlog.Model.Entities
         public int BlogID
         {
             get { return _blogID; }
-            set { _blogID = value; }
+            set {
+                FirePropertyChanging("BlogID");
+                _blogID = value;
+                FirePropertyChanged("BlogID");
+            }
         }
 
         /// <summary>
@@ -55,7 +66,11 @@ namespace NetBlog.Model.Entities
         public string Content
         {
             get { return _content; }
-            set { _content = value; }
+            set {
+                FirePropertyChanging("Content");
+                _content = value;
+                FirePropertyChanged("Content");
+            }
         }
 
         /// <summary>
@@ -67,7 +82,11 @@ namespace NetBlog.Model.Entities
         public bool IsPublished
         {
             get { return _isPublished; }
-            set { _isPublished = value; }
+            set {
+                FirePropertyChanging("IsPublished");
+                _isPublished = value;
+                FirePropertyChanged("IsPublished");
+            }
         }
 
         /// <summary>
@@ -77,13 +96,25 @@ namespace NetBlog.Model.Entities
         public DateTime LastModifiedDate
         {
             get { return _lastModifiedDate; }
-            set { _lastModifiedDate = value; }
+            set {
+                FirePropertyChanging("LastModifiedDate");
+                _lastModifiedDate = value;
+                FirePropertyChanged("LastModifiedDate");
+            }
         }
 
+        /// <summary>
+        /// Gets or sets the order no.
+        /// </summary>
+        /// <value>The order no.</value>
         public int OrderNo
         {
             get { return _orderNo; }
-            set { _orderNo = value; }
+            set {
+                FirePropertyChanging("OrderNo");
+                _orderNo = value;
+                FirePropertyChanged("OrderNo");
+            }
         }
 
         /// <summary>
@@ -93,7 +124,11 @@ namespace NetBlog.Model.Entities
         public int PageID
         {
             get { return _pageID; }
-            set { _pageID = value; }
+            set {
+                FirePropertyChanging("PageID");
+                _pageID = value;
+                FirePropertyChanged("PageID");
+            }
         }
 
         /// <summary>
@@ -103,7 +138,11 @@ namespace NetBlog.Model.Entities
         public int? ParentPageID
         {
             get { return _parentPageID; }
-            set { _parentPageID = value; }
+            set {
+                FirePropertyChanging("ParentPageID");
+                _parentPageID = value;
+                FirePropertyChanged("ParentPageID");
+            }
         }
 
         /// <summary>
@@ -113,7 +152,11 @@ namespace NetBlog.Model.Entities
         public DateTime PublishDate
         {
             get { return _publishDate; }
-            set { _publishDate = value; }
+            set {
+                FirePropertyChanging("PublishDate");
+                _publishDate = value;
+                FirePropertyChanged("PublishDate");
+            }
         }
 
         /// <summary>
@@ -123,7 +166,11 @@ namespace NetBlog.Model.Entities
         public int ReadCount
         {
             get { return _readCount; }
-            set { _readCount = value; }
+            set {
+                FirePropertyChanging("ReadCount");
+                _readCount = value;
+                FirePropertyChanged("ReadCount");
+            }
         }
 
         /// <summary>
@@ -133,7 +180,11 @@ namespace NetBlog.Model.Entities
         public string Summary
         {
             get { return _summary; }
-            set { _summary = value; }
+            set {
+                FirePropertyChanging("Summary");
+                _summary = value;
+                FirePropertyChanged("Summary");
+            }
         }
 
         /// <summary>
@@ -143,7 +194,11 @@ namespace NetBlog.Model.Entities
         public string Title
         {
             get { return _title; }
-            set { _title = value; }
+            set {
+                FirePropertyChanging("Title");
+                _title = value;
+                FirePropertyChanged("Title");
+            }
         }
 
         /// <summary>
@@ -153,7 +208,11 @@ namespace NetBlog.Model.Entities
         public bool Visible
         {
             get { return _visible; }
-            set { _visible = value; }
+            set {
+                FirePropertyChanging("Visible");
+                _visible = value;
+                FirePropertyChanged("Visible");
+            }
         }
 
 		#endregion Properties 

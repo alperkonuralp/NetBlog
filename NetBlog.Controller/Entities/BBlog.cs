@@ -7,7 +7,10 @@ using NetBlog.Model.DataManagers;
 
 namespace NetBlog.Controller.Entities
 {
-    public class BBlog : EntityBase
+    /// <summary>
+    /// Blog Business Entity
+    /// </summary>
+    public class BBlog : BusinessEntityBase
     {
         #region Fields (4)
 
@@ -20,23 +23,47 @@ namespace NetBlog.Controller.Entities
 
         #region Properties (4)
 
+        /// <summary>
+        /// Gets or sets the blog ID.
+        /// </summary>
+        /// <value>The blog ID.</value>
         public int BlogID
         {
             get { return _blogID; }
-            set { _blogID = value; }
+            set {
+                FirePropertyChanging("BlogID");
+                _blogID = value;
+                FirePropertyChanged("BlogID");
+            }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the blog.
+        /// </summary>
+        /// <value>The name of the blog.</value>
         public string BlogName
         {
             get { return _blogName; }
-            set { _blogName = value; }
+            set {
+                FirePropertyChanging("BlogName");
+                _blogName = value;
+                FirePropertyChanged("BlogName");
+            }
         }
 
+        /// <summary>
+        /// Gets the pages.
+        /// </summary>
+        /// <value>The pages.</value>
         public List<BBlogPage> Pages
         {
             get { return _pages; }
         }
 
+        /// <summary>
+        /// Gets the posts.
+        /// </summary>
+        /// <value>The posts.</value>
         public List<BBlogPost> Posts
         {
             get
@@ -73,4 +100,6 @@ namespace NetBlog.Controller.Entities
 
         #endregion Properties
     }
+
+
 }

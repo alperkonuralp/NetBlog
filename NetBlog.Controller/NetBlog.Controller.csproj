@@ -32,6 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -47,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Common\DataContextBase.cs" />
     <Compile Include="Common\EntityBase.cs" />
+    <Compile Include="DataContexts\BlogDataContext.cs" />
     <Compile Include="Entities\BBlog.cs" />
     <Compile Include="Entities\BBlogCategory.cs" />
     <Compile Include="Entities\BBlogComment.cs" />

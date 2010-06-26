@@ -6,7 +6,10 @@ using NetBlog.Controller.Common;
 
 namespace NetBlog.Controller.Entities
 {
-    public class BBlogCategory : EntityBase
+    /// <summary>
+    /// Blog Category Business Entity
+    /// </summary>
+    public class BBlogCategory : BusinessEntityBase
     {
         #region Fields (7)
 
@@ -22,42 +25,86 @@ namespace NetBlog.Controller.Entities
 
         #region Properties (7)
 
+        /// <summary>
+        /// Gets or sets the category ID.
+        /// </summary>
+        /// <value>The category ID.</value>
         public int CategoryID
         {
             get { return _categoryID; }
-            set { _categoryID = value; }
+            set {
+                FirePropertyChanging("CategoryID");
+                _categoryID = value;
+                FirePropertyChanged("CategoryID");
+            }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the category.
+        /// </summary>
+        /// <value>The name of the category.</value>
         public string CategoryName
         {
             get { return _categoryName; }
-            set { _categoryName = value; }
+            set {
+                FirePropertyChanging("CategoryName");
+                _categoryName = value;
+                FirePropertyChanged("CategoryName");
+            }
         }
 
+        /// <summary>
+        /// Gets the children.
+        /// </summary>
+        /// <value>The children.</value>
         public List<BBlogCategory> Children
         {
             get { return _children; }
 
         }
 
+        /// <summary>
+        /// Gets or sets the order no.
+        /// </summary>
+        /// <value>The order no.</value>
         public int OrderNo
         {
             get { return _orderNo; }
-            set { _orderNo = value; }
+            set {
+                FirePropertyChanging("OrderNo");
+                _orderNo = value;
+                FirePropertyChanged("OrderNo");
+            }
         }
 
+        /// <summary>
+        /// Gets the parent.
+        /// </summary>
+        /// <value>The parent.</value>
         public BBlogCategory Parent
         {
             get { return _parent; }
 
         }
 
+        /// <summary>
+        /// Gets or sets the parent category ID.
+        /// </summary>
+        /// <value>The parent category ID.</value>
         public int? ParentCategoryID
         {
             get { return _parentCategoryID; }
-            set { _parentCategoryID = value; }
+            set {
+                FirePropertyChanging("ParentCategoryID");
+                _parentCategoryID = value;
+                FirePropertyChanged("ParentCategoryID");
+            }
         }
 
+        /// <summary>
+        /// Gets the posts.
+        /// </summary>
+        /// <value>The posts.</value>
         public List<BBlogPost> Posts
         {
             get { return _posts; }
