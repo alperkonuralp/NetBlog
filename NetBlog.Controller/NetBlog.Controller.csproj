@@ -38,6 +38,16 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -57,6 +67,7 @@
     <Compile Include="DataContexts\BlogPageDataContext.cs" />
     <Compile Include="DataContexts\BlogPostDataContext.cs" />
     <Compile Include="DataContexts\BlogTagDataContext.cs" />
+    <Compile Include="DataSources\BlogDataSource.cs" />
     <Compile Include="Entities\BBlog.cs" />
     <Compile Include="Entities\BBlogCategory.cs" />
     <Compile Include="Entities\BBlogComment.cs" />
