@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetBlog.Controller.Common;
+using NetBlog.Controller.DataContexts;
 
 namespace NetBlog.Controller.Entities
 {
@@ -22,6 +23,21 @@ namespace NetBlog.Controller.Entities
         private Guid? _userID;
         private string _writerName;
 
+
+        private BBlogPost _post;
+
+        public BBlogPost Post
+        {
+            get
+            {
+                if (_post == null)
+                {
+                    _post = new BlogPostDataContext().GetPostByPostID(PostID);
+                }
+                return _post;
+            }
+            internal set { _post = value; }
+        }
         #endregion Fields
 
         #region Properties (8)

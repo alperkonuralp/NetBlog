@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetBlog.Controller.Common;
+using NetBlog.Controller.DataContexts;
 
 namespace NetBlog.Controller.Entities
 {
@@ -54,8 +55,16 @@ namespace NetBlog.Controller.Entities
         /// <value>The blog.</value>
         public BBlog Blog
         {
-            get { return _blog; }
-            internal set {
+            get
+            {
+                if (_blog == null)
+                {
+                    _blog = new BlogDataContext().GetBlogByBlogID(BlogID);
+                }
+                return _blog;
+            }
+            internal set
+            {
                 FirePropertyChanging("Blog");
                 _blog = value;
                 FirePropertyChanged("Blog");
@@ -83,7 +92,14 @@ namespace NetBlog.Controller.Entities
         /// <value>The categories.</value>
         public List<BBlogCategory> Categories
         {
-            get { return _categories; }
+            get
+            {
+                if (_categories == null)
+                {
+                    _categories = new BlogCategoryDataContext().GetCategoriesByPost(this);
+                }
+                return _categories;
+            }
 
         }
 
@@ -93,7 +109,14 @@ namespace NetBlog.Controller.Entities
         /// <value>The comments.</value>
         public List<BBlogComment> Comments
         {
-            get { return _comments; }
+            get
+            {
+                if (_comments == null)
+                {
+                    _comments = new BlogCommentDataContext().GetCommentsByPost(this);
+                }
+                return _comments;
+            }
 
         }
 
@@ -210,7 +233,14 @@ namespace NetBlog.Controller.Entities
         /// <value>The tags.</value>
         public List<BBlogTag> Tags
         {
-            get { return _tags; }
+            get
+            {
+                if (_tags == null)
+                {
+                    _tags = new BlogTagDataContext().GetTagsByPost(this);
+                }
+                return _tags;
+            }
 
         }
 

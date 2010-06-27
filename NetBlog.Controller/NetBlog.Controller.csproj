@@ -50,7 +50,13 @@
   <ItemGroup>
     <Compile Include="Common\DataContextBase.cs" />
     <Compile Include="Common\EntityBase.cs" />
+    <Compile Include="DataContexts\BlogCategoryDataContext.cs" />
+    <Compile Include="DataContexts\BlogCommentDataContext.cs" />
     <Compile Include="DataContexts\BlogDataContext.cs" />
+    <Compile Include="DataContexts\BlogPageCommentDataContext.cs" />
+    <Compile Include="DataContexts\BlogPageDataContext.cs" />
+    <Compile Include="DataContexts\BlogPostDataContext.cs" />
+    <Compile Include="DataContexts\BlogTagDataContext.cs" />
     <Compile Include="Entities\BBlog.cs" />
     <Compile Include="Entities\BBlogCategory.cs" />
     <Compile Include="Entities\BBlogComment.cs" />

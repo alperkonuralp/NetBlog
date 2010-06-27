@@ -14,6 +14,10 @@ namespace NetBlog.Model.DataManagers
     /// </summary>
     public class BlogTagDataManager : DataManagerBase
     {
+        /// <summary>
+        /// Gets all tags.
+        /// </summary>
+        /// <returns></returns>
         public List<EBlogTag> GetAllTags()
         {
             return ExecuteToList<EBlogTag>(
@@ -22,6 +26,11 @@ namespace NetBlog.Model.DataManagers
         }
 
 
+        /// <summary>
+        /// Gets the tags by post ID.
+        /// </summary>
+        /// <param name="postID">The post ID.</param>
+        /// <returns></returns>
         public List<EBlogTag> GetTagsByPostID(
             int postID)
         {
@@ -32,6 +41,74 @@ namespace NetBlog.Model.DataManagers
         }
 
 
+        /// <summary>
+        /// Inserts the tag.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        public int InsertTag(EBlogTag tag)
+        {
+            return ExecuteNonQuery(
+                @"INSERT INTO TBlogTag (PostID, Tag)
+VALUES (@PostID, @Tag)",
+                       CreateParameter("@PostID", tag.PostID),
+                       CreateParameter("@Tag", tag.Tag));
+        }
+
+
+        /// <summary>
+        /// Inserts the tag.
+        /// </summary>
+        /// <param name="postID">The post ID.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        public int InsertTag(
+            int postID,
+            string tag)
+        {
+            return ExecuteNonQuery(
+                @"INSERT INTO TBlogTag (PostID, Tag)
+VALUES (@PostID, @Tag)",
+                       CreateParameter("@PostID", postID),
+                       CreateParameter("@Tag", tag));
+        }
+
+
+        /// <summary>
+        /// Deletes the tag.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        public int DeleteTag(EBlogTag tag)
+        {
+            return ExecuteNonQuery(
+                @"Delete TBlogTag WHERE PostID = @PostID AND Tag = @Tag",
+                       CreateParameter("@PostID", tag.PostID),
+                       CreateParameter("@Tag", tag.Tag));
+        }
+
+        /// <summary>
+        /// Deletes the tag.
+        /// </summary>
+        /// <param name="postID">The post ID.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        public int DeleteTag(int postID, string tag)
+        {
+            return ExecuteNonQuery(
+                @"Delete TBlogTag WHERE PostID = @PostID AND Tag = @Tag",
+                       CreateParameter("@PostID", postID),
+                       CreateParameter("@Tag", tag));
+        }
+
+
+
+
+        /// <summary>
+        /// Changes the specified SDR.
+        /// </summary>
+        /// <param name="sdr">The SDR.</param>
+        /// <returns></returns>
         protected EBlogTag Change(IDataReader sdr)
         {
             return new EBlogTag()

@@ -22,7 +22,7 @@ namespace NetBlog.Model.DataManagers
         public List<EBlogPost> GetAllBlogPosts()
         {
             return ExecuteToList<EBlogPost>(
-                "SELECT * FROM EBlogPost;",
+                "SELECT * FROM TBlogPost;",
                 Change);
         }
 
@@ -87,7 +87,7 @@ WHERE TBlogPostTag.Tag = @Tag",
             int postID)
         {
             return ExecuteToSingleRow<EBlogPost>(
-                "SELECT * FROM EBlogPost WHERE PostID = @PostID",
+                "SELECT * FROM TBlogPost WHERE PostID = @PostID",
                 Change,
                 CreateParameter("@PostID", postID));
         }

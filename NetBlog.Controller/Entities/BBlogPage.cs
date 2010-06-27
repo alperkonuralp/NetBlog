@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetBlog.Controller.Common;
+using NetBlog.Controller.DataContexts;
 
 namespace NetBlog.Controller.Entities
 {
@@ -11,15 +12,19 @@ namespace NetBlog.Controller.Entities
     /// </summary>
     public class BBlogPage : BusinessEntityBase
     {
-        #region Fields (13)
+        #region Fields (17)
 
         private Guid _author;
+        private BBlog _blog;
         private int _blogID;
+        private List<BBlogPage> _children;
+        private List<BBlogPageComment> _comments;
         private string _content;
         private bool _isPublished;
         private DateTime _lastModifiedDate;
         private int _orderNo;
         private int _pageID;
+        private BBlogPage _parent;
         private int? _parentPageID;
         private DateTime _publishDate;
         private int _readCount;
@@ -29,7 +34,7 @@ namespace NetBlog.Controller.Entities
 
         #endregion Fields
 
-        #region Properties (13)
+        #region Properties (17)
 
         /// <summary>
         /// Gets or sets the author.
@@ -47,6 +52,23 @@ namespace NetBlog.Controller.Entities
         }
 
         /// <summary>
+        /// Gets or sets the blog.
+        /// </summary>
+        /// <value>The blog.</value>
+        public BBlog Blog
+        {
+            get
+            {
+                if (_blog == null)
+                {
+                    _blog = new BlogDataContext().GetBlogByBlogID(BlogID);
+                }
+                return _blog;
+            }
+            internal set { _blog = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the blog ID.
         /// </summary>
         /// <value>The blog ID.</value>
@@ -59,6 +81,30 @@ namespace NetBlog.Controller.Entities
                 _blogID = value;
                 FirePropertyChanged("BlogID");
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the children.
+        /// </summary>
+        /// <value>The children.</value>
+        public List<BBlogPage> Children
+        {
+            get
+            {
+                if (_children == null)
+                {
+                    _children = new BlogPageDataContext().GetPagesByParentPage(this);
+                }
+
+                return _children;
+            }
+
+        }
+
+        public List<BBlogPageComment> Comments
+        {
+            get { return _comments; }
+
         }
 
         /// <summary>
@@ -139,6 +185,23 @@ namespace NetBlog.Controller.Entities
         }
 
         /// <summary>
+        /// Gets or sets the parent.
+        /// </summary>
+        /// <value>The parent.</value>
+        public BBlogPage Parent
+        {
+            get
+            {
+                if (_parent == null && _parentPageID.HasValue)
+                {
+                    _parent = new BlogPageDataContext().GetPageByPageID(ParentPageID ?? 0);
+                }
+                return _parent;
+            }
+            internal set { _parent = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the parent page ID.
         /// </summary>
         /// <value>The parent page ID.</value>
@@ -212,7 +275,6 @@ namespace NetBlog.Controller.Entities
                 FirePropertyChanged("Title");
             }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="BBlogPage"/> is visible.

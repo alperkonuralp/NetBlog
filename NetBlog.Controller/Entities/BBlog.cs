@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NetBlog.Controller.Common;
 using NetBlog.Model.DataManagers;
+using NetBlog.Controller.DataContexts;
 
 namespace NetBlog.Controller.Entities
 {
@@ -30,7 +31,8 @@ namespace NetBlog.Controller.Entities
         public int BlogID
         {
             get { return _blogID; }
-            set {
+            set
+            {
                 FirePropertyChanging("BlogID");
                 _blogID = value;
                 FirePropertyChanged("BlogID");
@@ -44,7 +46,8 @@ namespace NetBlog.Controller.Entities
         public string BlogName
         {
             get { return _blogName; }
-            set {
+            set
+            {
                 FirePropertyChanging("BlogName");
                 _blogName = value;
                 FirePropertyChanged("BlogName");
@@ -57,7 +60,14 @@ namespace NetBlog.Controller.Entities
         /// <value>The pages.</value>
         public List<BBlogPage> Pages
         {
-            get { return _pages; }
+            get
+            {
+                if (_pages == null)
+                {
+                    _pages = new BlogPageDataContext().GetPagesByBlog(this);
+                }
+                return _pages;
+            }
         }
 
         /// <summary>
@@ -70,29 +80,7 @@ namespace NetBlog.Controller.Entities
             {
                 if (_posts == null)
                 {
-                    _posts = new List<BBlogPost>();
-
-                    using (var data = new BlogPostDataManager())
-                    {
-                        var posts = data.GetBlogPostsByBlogID(_blogID);
-                        _posts.AddRange(
-                            posts.Select(x =>
-                            new BBlogPost() { 
-                                PostID = x.PostID,
-                                BlogID = x.BlogID,
-                                Blog = this,
-                                Title = x.Title,
-                                Content = x.Content,
-                                Summary = x.Summary,
-                                PublishDate = x.PublishDate,
-                                LastModifiedDate = x.LastModifiedDate,
-                                Author = x.Author,
-                                IsPublished = x.IsPublished,
-                                Visible = x.Visible,
-                                ReadCount = x.ReadCount
-                            }));
-                    }
-
+                    _posts = new BlogPostDataContext().GetPostsByBlog(this);
                 }
                 return _posts;
             }

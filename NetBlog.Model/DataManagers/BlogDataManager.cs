@@ -21,7 +21,7 @@ namespace NetBlog.Model.DataManagers
         public List<EBlog> GetAllBlogs()
         {
             return ExecuteToList<EBlog>(
-                "SELECT * FROM EBlog;",
+                "SELECT * FROM TBlog;",
                 Change);
         }
 
@@ -33,7 +33,7 @@ namespace NetBlog.Model.DataManagers
         public EBlog GetBlogByID(int blogID)
         {
             return ExecuteToSingleRow<EBlog>(
-                "SELECT * FROM EBlog WHERE BlogID = @BlogID;",
+                "SELECT * FROM TBlog WHERE BlogID = @BlogID;",
                 Change,
                 CreateParameter("BlogID", blogID));
         }

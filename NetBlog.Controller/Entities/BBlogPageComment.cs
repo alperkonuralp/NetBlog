@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetBlog.Controller.Common;
+using NetBlog.Controller.DataContexts;
 
 namespace NetBlog.Controller.Entities
 {
@@ -11,20 +12,21 @@ namespace NetBlog.Controller.Entities
     /// </summary>
     public class BBlogPageComment : BusinessEntityBase
     {
-        #region Fields (8)
+		#region Fields (9) 
 
         private bool _approved;
         private DateTime _commentDate;
         private int _commentID;
         private string _content;
+        private BBlogPage _page;
         private int _pageID;
         private string _title;
         private Guid? _userID;
         private string _writerName;
 
-        #endregion Fields
+		#endregion Fields 
 
-        #region Properties (8)
+		#region Properties (9) 
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="BBlogPageComment"/> is approved.
@@ -33,7 +35,8 @@ namespace NetBlog.Controller.Entities
         public bool Approved
         {
             get { return _approved; }
-            set {
+            set
+            {
                 FirePropertyChanging("Approved");
                 _approved = value;
                 FirePropertyChanged("Approved");
@@ -47,7 +50,8 @@ namespace NetBlog.Controller.Entities
         public DateTime CommentDate
         {
             get { return _commentDate; }
-            set {
+            set
+            {
                 FirePropertyChanging("CommentDate");
                 _commentDate = value;
                 FirePropertyChanged("CommentDate");
@@ -61,7 +65,8 @@ namespace NetBlog.Controller.Entities
         public int CommentID
         {
             get { return _commentID; }
-            set {
+            set
+            {
                 FirePropertyChanging("CommentID");
                 _commentID = value;
                 FirePropertyChanged("CommentID");
@@ -75,11 +80,29 @@ namespace NetBlog.Controller.Entities
         public string Content
         {
             get { return _content; }
-            set {
+            set
+            {
                 FirePropertyChanging("Content");
                 _content = value;
                 FirePropertyChanged("Content");
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the page.
+        /// </summary>
+        /// <value>The page.</value>
+        public BBlogPage Page
+        {
+            get
+            {
+                if (_page == null && PageID != 0)
+                {
+                    _page = new BlogPageDataContext().GetPageByPageID(PageID);
+                }
+                return _page;
+            }
+            internal set { _page = value; }
         }
 
         /// <summary>
@@ -89,7 +112,8 @@ namespace NetBlog.Controller.Entities
         public int PageID
         {
             get { return _pageID; }
-            set {
+            set
+            {
                 FirePropertyChanging("PageID");
                 _pageID = value;
                 FirePropertyChanged("PageID");
@@ -103,7 +127,8 @@ namespace NetBlog.Controller.Entities
         public string Title
         {
             get { return _title; }
-            set {
+            set
+            {
                 FirePropertyChanging("Title");
                 _title = value;
                 FirePropertyChanged("Title");
@@ -117,7 +142,8 @@ namespace NetBlog.Controller.Entities
         public Guid? UserID
         {
             get { return _userID; }
-            set {
+            set
+            {
                 FirePropertyChanging("UserID");
                 _userID = value;
                 FirePropertyChanged("UserID");
@@ -131,13 +157,14 @@ namespace NetBlog.Controller.Entities
         public string WriterName
         {
             get { return _writerName; }
-            set {
+            set
+            {
                 FirePropertyChanging("WriterName");
                 _writerName = value;
                 FirePropertyChanged("WriterName");
             }
         }
 
-        #endregion Properties
+		#endregion Properties 
     }
 }

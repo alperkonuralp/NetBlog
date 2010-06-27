@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetBlog.Controller.Common;
+using NetBlog.Controller.DataContexts;
 
 namespace NetBlog.Controller.Entities
 {
@@ -32,7 +33,8 @@ namespace NetBlog.Controller.Entities
         public int CategoryID
         {
             get { return _categoryID; }
-            set {
+            set
+            {
                 FirePropertyChanging("CategoryID");
                 _categoryID = value;
                 FirePropertyChanged("CategoryID");
@@ -46,7 +48,8 @@ namespace NetBlog.Controller.Entities
         public string CategoryName
         {
             get { return _categoryName; }
-            set {
+            set
+            {
                 FirePropertyChanging("CategoryName");
                 _categoryName = value;
                 FirePropertyChanged("CategoryName");
@@ -59,8 +62,14 @@ namespace NetBlog.Controller.Entities
         /// <value>The children.</value>
         public List<BBlogCategory> Children
         {
-            get { return _children; }
-
+            get
+            {
+                if (_children == null)
+                {
+                    _children = (new BlogCategoryDataContext()).GetCategoriesByParentCategory(this);
+                }
+                return _children;
+            }
         }
 
         /// <summary>
@@ -70,7 +79,8 @@ namespace NetBlog.Controller.Entities
         public int OrderNo
         {
             get { return _orderNo; }
-            set {
+            set
+            {
                 FirePropertyChanging("OrderNo");
                 _orderNo = value;
                 FirePropertyChanged("OrderNo");
@@ -83,8 +93,15 @@ namespace NetBlog.Controller.Entities
         /// <value>The parent.</value>
         public BBlogCategory Parent
         {
-            get { return _parent; }
-
+            get
+            {
+                if (_parent == null)
+                {
+                    _parent = (new BlogCategoryDataContext()).GetCategoryByCategoryID(CategoryID);
+                }
+                return _parent;
+            }
+            internal set { _parent = value; }
         }
 
         /// <summary>
@@ -94,7 +111,8 @@ namespace NetBlog.Controller.Entities
         public int? ParentCategoryID
         {
             get { return _parentCategoryID; }
-            set {
+            set
+            {
                 FirePropertyChanging("ParentCategoryID");
                 _parentCategoryID = value;
                 FirePropertyChanged("ParentCategoryID");
@@ -107,7 +125,14 @@ namespace NetBlog.Controller.Entities
         /// <value>The posts.</value>
         public List<BBlogPost> Posts
         {
-            get { return _posts; }
+            get
+            {
+                if (_posts == null)
+                {
+                    _posts = new BlogPostDataContext().GetPostsByCategoryID(CategoryID);
+                }
+                return _posts;
+            }
 
         }
 
