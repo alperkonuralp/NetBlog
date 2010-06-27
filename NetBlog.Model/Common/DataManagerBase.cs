@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.OracleClient;
+using System.Data.SQLite;
+using System.Data.SqlServerCe;
+using System.Data.Common;
 
 namespace NetBlog.Model.Common
 {
@@ -39,12 +45,21 @@ namespace NetBlog.Model.Common
         /// Gets the connection.
         /// </summary>
         /// <returns></returns>
-        protected SqlConnection GetConnection()
+        protected static DbConnection GetConnection()
         {
             return new SqlConnection(
                 "Data Source=.; Initial Catalog=NetBlogDB;" +
                 "User ID=NetBlogDBUser; Password=U53r;"
                 );
+        }
+
+
+        protected static DataBaseType DataBaseType
+        {
+            get
+            {
+                return DataBaseType.SqlServer;
+            }
         }
 
         /// <summary>
@@ -58,10 +73,10 @@ namespace NetBlog.Model.Common
         protected List<T> ExecuteToList<T>(
             string sql,
             GetEntityFromDataReaderDelegate<T> del,
-            params SqlParameter[] pars)
+            params IDataParameter[] pars)
             where T : EntityBase
         {
-            using (SqlConnection sc = GetConnection())
+            using (DbConnection sc = GetConnection())
             {
                 var scom = sc.CreateCommand();
                 scom.CommandText = sql;
@@ -96,14 +111,14 @@ namespace NetBlog.Model.Common
         protected T ExecuteToSingleRow<T>(
             string sql,
             GetEntityFromDataReaderDelegate<T> del,
-            params SqlParameter[] pars)
+            params IDataParameter[] pars)
             where T : EntityBase
         {
-            using (SqlConnection sc = GetConnection())
+            using (DbConnection sc = GetConnection())
             {
                 var scom = sc.CreateCommand();
                 scom.CommandText = sql;
-                
+
                 if (pars != null && pars.Length > 0)
                 {
                     scom.Parameters.AddRange(pars);
@@ -132,9 +147,9 @@ namespace NetBlog.Model.Common
         /// <returns></returns>
         protected int ExecuteNonQuery(
             string sql,
-            params SqlParameter[] pars)
+            params IDataParameter[] pars)
         {
-            using (SqlConnection sc = GetConnection())
+            using (DbConnection sc = GetConnection())
             {
                 var scom = sc.CreateCommand();
                 scom.CommandText = sql;
@@ -163,14 +178,14 @@ namespace NetBlog.Model.Common
                 "@" + string.Join(", @", columns.Keys.ToArray())
                 );
 
-            using (SqlConnection sc = GetConnection())
+            using (DbConnection sc = GetConnection())
             {
                 var scom = sc.CreateCommand();
                 scom.CommandText = sql;
 
                 scom.Parameters.AddRange(
                     columns.Select(
-                        x => new SqlParameter("@" + x.Key, x.Value))
+                        x => CreateParameter("@" + x.Key, x.Value))
                     .ToArray());
 
                 sc.Open();
@@ -188,7 +203,7 @@ namespace NetBlog.Model.Common
 
 
         public static string GetStringFromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -200,7 +215,7 @@ namespace NetBlog.Model.Common
         }
 
         public static int? GetInt32FromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -212,7 +227,7 @@ namespace NetBlog.Model.Common
         }
 
         public static short? GetInt16FromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -223,7 +238,7 @@ namespace NetBlog.Model.Common
             return sdr.GetInt16(i);
         }
         public static long? GetInt64FromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -235,7 +250,7 @@ namespace NetBlog.Model.Common
         }
 
         public static float? GetFloatFromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -246,7 +261,7 @@ namespace NetBlog.Model.Common
             return sdr.GetFloat(i);
         }
         public static double? GetDoubleFromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -258,7 +273,7 @@ namespace NetBlog.Model.Common
         }
 
         public static decimal? GetDecimalFromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -270,7 +285,7 @@ namespace NetBlog.Model.Common
         }
 
         public static DateTime? GetDateTimeFromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -282,7 +297,7 @@ namespace NetBlog.Model.Common
         }
 
         public static Guid? GetGuidFromDataReader(
-            SqlDataReader sdr, string col)
+            IDataReader sdr, string col)
         {
             int i = sdr.GetOrdinal(col);
             if (sdr.IsDBNull(i))
@@ -292,8 +307,63 @@ namespace NetBlog.Model.Common
 
             return sdr.GetGuid(i);
         }
+
+
+
+
+        private static DbCommand _parameterCommand;
+        protected static DbCommand ParameterCommand
+        {
+            get
+            {
+                if (_parameterCommand == null)
+                {
+                    var con = GetConnection();
+                    _parameterCommand = con.CreateCommand();
+                }
+
+                return _parameterCommand;
+            }
+        }
+
+
+
+        public IDataParameter CreateParameter(
+            string name)
+        {
+            var par = ParameterCommand.CreateParameter();
+            par.ParameterName = name;
+
+            return par;
+        }
+
+        public IDataParameter CreateParameter(
+            string name, object value)
+        {
+            var par = ParameterCommand.CreateParameter();
+            par.ParameterName = name;
+            par.Value = value;
+
+            return par;
+        }
+
+
+        public IDataParameter CreateParameter(
+            string name, DbType dbType, object value)
+        {
+            var par = ParameterCommand.CreateParameter();
+            par.ParameterName = name;
+            par.Value = value;
+            par.DbType = dbType;
+
+            return par;
+        }
+
+
     }
 
+    public enum DataBaseType { SqlServer, SqlServerCE, OleDB, Oracle, SQLite };
+
     public delegate T GetEntityFromDataReaderDelegate<T>
-        (SqlDataReader sdr) where T : EntityBase;
+        (IDataReader sdr) where T : EntityBase;
 }

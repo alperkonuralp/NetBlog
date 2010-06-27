@@ -5,6 +5,8 @@ using System.Text;
 using NetBlog.Model.Common;
 using NetBlog.Model.Entities;
 using System.Data.SqlClient;
+using System.Data;
+using System.Data.Common;
 
 namespace NetBlog.Model.DataManagers
 {
@@ -39,7 +41,7 @@ INNER JOIN TBlogPostCategory
 ON TBlogPost.PostID = TBlogPostCategory.PostID
 WHERE TBlogPostCategory.CategoryID = @CategoryID",
                 Change,
-                new SqlParameter("@CategoryID", categoryID));
+                CreateParameter("@CategoryID", categoryID));
         }
 
         /// <summary>
@@ -55,7 +57,7 @@ WHERE TBlogPostCategory.CategoryID = @CategoryID",
 FROM TBlogPost
 WHERE BlogID = @BlogID",
                 Change,
-                new SqlParameter("@BlogID", blogID));
+                CreateParameter("@BlogID", blogID));
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ INNER JOIN TBlogPostTag
 ON TBlogPost.PostID = TBlogPostTag.PostID
 WHERE TBlogPostTag.Tag = @Tag",
                 Change,
-                new SqlParameter("@Tag", tag));
+                CreateParameter("@Tag", tag));
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ WHERE TBlogPostTag.Tag = @Tag",
             return ExecuteToSingleRow<EBlogPost>(
                 "SELECT * FROM EBlogPost WHERE PostID = @PostID",
                 Change,
-                new SqlParameter("@PostID", postID));
+                CreateParameter("@PostID", postID));
         }
 
 
@@ -103,16 +105,16 @@ WHERE TBlogPostTag.Tag = @Tag",
             //BlogID, Title, [Content], Summary, PublishDate, LastModifiedDate, Author, IsPublished, Visible, ReadCount) 
             //VALUES (
             //@BlogID, @Title, @Content, @Summary, @PublishDate, @LastModifiedDate, @Author, @IsPublished, @Visible, @ReadCount)",
-            //                new SqlParameter("@BlogID", post.BlogID),
-            //                new SqlParameter("@Title", post.Title),
-            //                new SqlParameter("@Content", post.Content),
-            //                new SqlParameter("@Summary", post.Summary),
-            //                new SqlParameter("@PublishDate", post.PublishDate),
-            //                new SqlParameter("@LastModifiedDate", post.LastModifiedDate),
-            //                new SqlParameter("@Author", post.Author),
-            //                new SqlParameter("@IsPublished", post.IsPublished),
-            //                new SqlParameter("@Visible", post.Visible),
-            //                new SqlParameter("@ReadCount", post.ReadCount)
+            //                CreateParameter("@BlogID", post.BlogID),
+            //                CreateParameter("@Title", post.Title),
+            //                CreateParameter("@Content", post.Content),
+            //                CreateParameter("@Summary", post.Summary),
+            //                CreateParameter("@PublishDate", post.PublishDate),
+            //                CreateParameter("@LastModifiedDate", post.LastModifiedDate),
+            //                CreateParameter("@Author", post.Author),
+            //                CreateParameter("@IsPublished", post.IsPublished),
+            //                CreateParameter("@Visible", post.Visible),
+            //                CreateParameter("@ReadCount", post.ReadCount)
             //                );
 
             return ExecuteInsertQueryReturnID(
@@ -162,16 +164,16 @@ WHERE TBlogPostTag.Tag = @Tag",
 BlogID, Title, [Content], Summary, PublishDate, LastModifiedDate, Author, IsPublished, Visible, ReadCount) 
 VALUES (
 @BlogID, @Title, @Content, @Summary, @PublishDate, @LastModifiedDate, @Author, @IsPublished, @Visible, @ReadCount)",
-                new SqlParameter("@BlogID", blogID),
-                new SqlParameter("@Title", title),
-                new SqlParameter("@Content", content),
-                new SqlParameter("@Summary", summary),
-                new SqlParameter("@PublishDate", publishDate ?? DateTime.Now),
-                new SqlParameter("@LastModifiedDate", lastModifiedDate ?? DateTime.Now),
-                new SqlParameter("@Author", author),
-                new SqlParameter("@IsPublished", isPublished ?? false),
-                new SqlParameter("@Visible", visible ?? true),
-                new SqlParameter("@ReadCount", readCount ?? 1)
+                CreateParameter("@BlogID", blogID),
+                CreateParameter("@Title", title),
+                CreateParameter("@Content", content),
+                CreateParameter("@Summary", summary),
+                CreateParameter("@PublishDate", publishDate ?? DateTime.Now),
+                CreateParameter("@LastModifiedDate", lastModifiedDate ?? DateTime.Now),
+                CreateParameter("@Author", author),
+                CreateParameter("@IsPublished", isPublished ?? false),
+                CreateParameter("@Visible", visible ?? true),
+                CreateParameter("@ReadCount", readCount ?? 1)
                 );
         }
 
@@ -198,17 +200,17 @@ SET
     ReadCount = @ReadCount
 WHERE 
     PostID = @PostID;",
-                new SqlParameter("@BlogID", post.BlogID),
-                new SqlParameter("@Title", post.Title),
-                new SqlParameter("@Content", post.Content),
-                new SqlParameter("@Summary", post.Summary),
-                new SqlParameter("@PublishDate", post.PublishDate),
-                new SqlParameter("@LastModifiedDate", post.LastModifiedDate),
-                new SqlParameter("@Author", post.Author),
-                new SqlParameter("@IsPublished", post.IsPublished),
-                new SqlParameter("@Visible", post.Visible),
-                new SqlParameter("@ReadCount", post.ReadCount),
-                new SqlParameter("@PostID", post.PostID));
+                CreateParameter("@BlogID", post.BlogID),
+                CreateParameter("@Title", post.Title),
+                CreateParameter("@Content", post.Content),
+                CreateParameter("@Summary", post.Summary),
+                CreateParameter("@PublishDate", post.PublishDate),
+                CreateParameter("@LastModifiedDate", post.LastModifiedDate),
+                CreateParameter("@Author", post.Author),
+                CreateParameter("@IsPublished", post.IsPublished),
+                CreateParameter("@Visible", post.Visible),
+                CreateParameter("@ReadCount", post.ReadCount),
+                CreateParameter("@PostID", post.PostID));
 
         }
 
@@ -255,17 +257,17 @@ SET
     ReadCount = @ReadCount
 WHERE 
     PostID = @PostID;",
-                new SqlParameter("@BlogID", blogID),
-                new SqlParameter("@Title", title),
-                new SqlParameter("@Content", content),
-                new SqlParameter("@Summary", summary),
-                new SqlParameter("@PublishDate", publishDate),
-                new SqlParameter("@LastModifiedDate", lastModifiedDate),
-                new SqlParameter("@Author", author),
-                new SqlParameter("@IsPublished", isPublished),
-                new SqlParameter("@Visible", visible),
-                new SqlParameter("@ReadCount", readCount),
-                new SqlParameter("@PostID", postID));
+                CreateParameter("@BlogID", blogID),
+                CreateParameter("@Title", title),
+                CreateParameter("@Content", content),
+                CreateParameter("@Summary", summary),
+                CreateParameter("@PublishDate", publishDate),
+                CreateParameter("@LastModifiedDate", lastModifiedDate),
+                CreateParameter("@Author", author),
+                CreateParameter("@IsPublished", isPublished),
+                CreateParameter("@Visible", visible),
+                CreateParameter("@ReadCount", readCount),
+                CreateParameter("@PostID", postID));
 
         }
 
@@ -282,7 +284,7 @@ WHERE
                 @"Delete TBlogPost 
 WHERE 
     PostID = @PostID;",
-                new SqlParameter("@PostID", post.PostID));
+                CreateParameter("@PostID", post.PostID));
 
         }
 
@@ -297,7 +299,7 @@ WHERE
                 @"Delete TBlogPost 
 WHERE 
     PostID = @PostID;",
-                new SqlParameter("@PostID", postID));
+                CreateParameter("@PostID", postID));
 
         }
 
@@ -313,8 +315,8 @@ WHERE
             params int[] categoryIDs)
         {
             StringBuilder sb = new StringBuilder();
-            SqlParameter[] spa =
-                new SqlParameter[categoryIDs.Length + 1];
+            IDataParameter[] spa =
+                new IDataParameter[categoryIDs.Length + 1];
             int i = 0;
             foreach (var item in categoryIDs)
             {
@@ -322,11 +324,11 @@ WHERE
 INSERT TBlogPostCategory(PostID, CategoryID) 
 VALUES (@PostID,@CategoryID{0});", i);
                 spa[i] =
-                    new SqlParameter("@CategoryID" + i, item);
+                    CreateParameter("@CategoryID" + i, item);
                 i++;
             }
             spa[categoryIDs.Length] =
-                new SqlParameter("@PostID", postID);
+                CreateParameter("@PostID", postID);
 
             return ExecuteNonQuery(
                 sb.ToString(),
@@ -349,7 +351,7 @@ VALUES (@PostID,@CategoryID{0});", i);
                 string.Format(@"DELETE TBlogPostCategory 
 WHERE PostID = @PostID AND CategoryID IN ({0})",
                 string.Join(", ", categoryIDs.Select(x => x.ToString()).ToArray())),
-                new SqlParameter("@PostID", postID));
+                CreateParameter("@PostID", postID));
 
         }
 
@@ -357,7 +359,7 @@ WHERE PostID = @PostID AND CategoryID IN ({0})",
 
 
 
-        protected EBlogPost Change(SqlDataReader sdr)
+        protected EBlogPost Change(IDataReader sdr)
         {
             return new EBlogPost()
             {

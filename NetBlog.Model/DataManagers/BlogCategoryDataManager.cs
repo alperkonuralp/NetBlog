@@ -9,6 +9,9 @@ using System.Data;
 
 namespace NetBlog.Model.DataManagers
 {
+    /// <summary>
+    /// Blog Category Data Manager
+    /// </summary>
     public class BlogCategoryDataManager : DataManagerBase
     {
         /// <summary>
@@ -33,11 +36,7 @@ namespace NetBlog.Model.DataManagers
             return ExecuteToList<EBlogCategory>(
                 "SELECT * FROM TBlogCategory WHERE ParentCategoryID = @ParentCategoryID;",
                 Change,
-                new SqlParameter("@ParentCategoryID", SqlDbType.Int)
-                {
-                    IsNullable = true,
-                    Value = parentID
-                });
+                CreateParameter("@ParentCategoryID", DbType.Int32, parentID));
         }
 
 
@@ -50,7 +49,7 @@ INNER JOIN TBlogPostCategory
 ON TBlogCategory.CategoryID = TBlogPostCategory.CategoryID
 WHERE TBlogPostCategory.PostID = @PostID;",
                 Change,
-                new SqlParameter("@PostID", postID));
+                CreateParameter("@PostID", postID));
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ WHERE TBlogPostCategory.PostID = @PostID;",
             return ExecuteToSingleRow<EBlogCategory>(
                 "SELECT * FROM TBlogCategory WHERE CategoryID = @CategoryID;",
                 Change,
-                new SqlParameter("@CategoryID", categoryID));
+                CreateParameter("@CategoryID", categoryID));
         }
 
 
@@ -122,10 +121,10 @@ SET
     OrderNo = @OrderNo
 WHERE 
     CategoryID = @CategoryID;",
-                new SqlParameter("@ParentCategoryID", category.ParentCategoryID),
-                new SqlParameter("@CategoryName", category.CategoryName),
-                new SqlParameter("@OrderNo", category.OrderNo),
-                new SqlParameter("@CategoryID", category.CategoryID)
+                CreateParameter("@ParentCategoryID", category.ParentCategoryID),
+                CreateParameter("@CategoryName", category.CategoryName),
+                CreateParameter("@OrderNo", category.OrderNo),
+                CreateParameter("@CategoryID", category.CategoryID)
 );
         }
 
@@ -151,10 +150,10 @@ SET
     OrderNo = @OrderNo
 WHERE 
     CategoryID = @CategoryID;",
-                new SqlParameter("@ParentCategoryID", parentCategoryID),
-                new SqlParameter("@CategoryName", categoryName),
-                new SqlParameter("@OrderNo", orderNo),
-                new SqlParameter("@CategoryID", categoryID)
+                CreateParameter("@ParentCategoryID", parentCategoryID),
+                CreateParameter("@CategoryName", categoryName),
+                CreateParameter("@OrderNo", orderNo),
+                CreateParameter("@CategoryID", categoryID)
 );
         }
 
@@ -167,7 +166,7 @@ WHERE
         {
             return ExecuteNonQuery(
                 "DELETE TBlogCategory WHERE CategoryID = @CategoryID;",
-                new SqlParameter("@CategoryID", category.CategoryID)
+                CreateParameter("@CategoryID", category.CategoryID)
                 );
         }
 
@@ -180,7 +179,7 @@ WHERE
         {
             return ExecuteNonQuery(
                 "DELETE TBlogCategory WHERE CategoryID = @CategoryID;",
-                new SqlParameter("@CategoryID", categoryID)
+                CreateParameter("@CategoryID", categoryID)
                 );
         }
 
@@ -261,7 +260,7 @@ WHERE CategoryID = @CategoryID AND PostID IN ({0})",
         /// </summary>
         /// <param name="sdr">The SDR.</param>
         /// <returns></returns>
-        private EBlogCategory Change(SqlDataReader sdr)
+        private EBlogCategory Change(IDataReader sdr)
         {
             return new EBlogCategory()
             {
